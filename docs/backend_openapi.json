@@ -1,0 +1,2175 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "BH66 Tailoring API",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "paths": {
+    "/api/profiles": {
+      "post": {
+        "operationId": "measurements_api_routes_create_measurement_profile",
+        "summary": "Create Measurement Profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "profiles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "measurements_api_routes_list_profiles",
+        "summary": "List Profiles",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProfileListItemOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "profiles"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/profiles/{profile_id}/images": {
+      "post": {
+        "operationId": "measurements_api_routes_upload_measurement_image",
+        "summary": "Upload Measurement Image",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "profile_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Profile Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "profiles"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "title": "MultiPartBodyParams",
+                "type": "object",
+                "properties": {
+                  "image_type": {
+                    "title": "Image Type",
+                    "type": "string"
+                  },
+                  "image_file": {
+                    "format": "binary",
+                    "title": "Image File",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "image_type",
+                  "image_file"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/profiles/{profile_id}/analyze": {
+      "post": {
+        "operationId": "measurements_api_routes_analyze_profile",
+        "summary": "Analyze Profile",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "profile_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Profile Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "profiles"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/profiles/{profile_id}/measurements": {
+      "patch": {
+        "operationId": "measurements_api_routes_patch_measurements",
+        "summary": "Patch Measurements",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "profile_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Profile Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "profiles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MeasurementsUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/profiles/{profile_id}": {
+      "get": {
+        "operationId": "measurements_api_routes_get_profile",
+        "summary": "Get Profile",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "profile_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Profile Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "profiles"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "operationId": "users_api_routes_register_user",
+        "summary": "Register User",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateIn"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "users_api_routes_login_user",
+        "summary": "Login User",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginIn"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/auth/refresh": {
+      "post": {
+        "operationId": "users_api_routes_refresh_token",
+        "summary": "Refresh Token",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "operationId": "users_api_routes_logout_user",
+        "summary": "Logout User",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/users/me": {
+      "get": {
+        "operationId": "users_api_routes_get_me",
+        "summary": "Get Me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "users_api_routes_update_me",
+        "summary": "Update Me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateMeIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users": {
+      "get": {
+        "operationId": "users_api_routes_list_users",
+        "summary": "List Users",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/UserOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/{user_id}": {
+      "get": {
+        "operationId": "users_api_routes_get_user",
+        "summary": "Get User",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "schema": {
+              "title": "User Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/orders": {
+      "post": {
+        "operationId": "orders_api_routes_create_order_endpoint",
+        "summary": "Create Order Endpoint",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "orders_api_routes_list_orders",
+        "summary": "List Orders",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/OrderOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/orders/{order_id}": {
+      "get": {
+        "operationId": "orders_api_routes_get_order",
+        "summary": "Get Order",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Order Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "orders_api_routes_patch_order_endpoint",
+        "summary": "Patch Order Endpoint",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Order Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderPatchIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/orders/catalog-models": {
+      "get": {
+        "operationId": "orders_api_routes_list_tailor_models",
+        "summary": "List Tailor Models",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/TailorModelOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "orders_api_routes_create_tailor_model_endpoint",
+        "summary": "Create Tailor Model Endpoint",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TailorModelOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "image": {
+                    "format": "binary",
+                    "title": "Image",
+                    "type": "string"
+                  },
+                  "payload": {
+                    "$ref": "#/components/schemas/TailorModelIn"
+                  }
+                },
+                "required": [
+                  "image",
+                  "payload"
+                ],
+                "title": "MultiPartBodyParams",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/orders/catalog-models/{model_id}": {
+      "get": {
+        "operationId": "orders_api_routes_get_tailor_model",
+        "summary": "Get Tailor Model",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "model_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Model Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TailorModelOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "orders_api_routes_patch_tailor_model_endpoint",
+        "summary": "Patch Tailor Model Endpoint",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "model_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Model Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TailorModelOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TailorModelPatchIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/orders/promotions": {
+      "get": {
+        "operationId": "orders_api_routes_list_promotions",
+        "summary": "List Promotions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PromotionOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "orders_api_routes_create_promotion_endpoint",
+        "summary": "Create Promotion Endpoint",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromotionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/orders/promotions/{promotion_id}": {
+      "patch": {
+        "operationId": "orders_api_routes_patch_promotion_endpoint",
+        "summary": "Patch Promotion Endpoint",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "promotion_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Promotion Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromotionPatchIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/notifications": {
+      "get": {
+        "operationId": "notifications_api_routes_list_notifications",
+        "summary": "List Notifications",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NotificationOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "notifications"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    },
+    "/api/notifications/{notification_id}/read": {
+      "patch": {
+        "operationId": "notifications_api_routes_mark_notification_read",
+        "summary": "Mark Notification Read",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "notification_id",
+            "schema": {
+              "format": "uuid",
+              "title": "Notification Id",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationMarkReadOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "notifications"
+        ],
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MeasurementFieldOut": {
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          }
+        },
+        "title": "MeasurementFieldOut",
+        "type": "object"
+      },
+      "MeasurementImageOut": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "image_type": {
+            "title": "Image Type",
+            "type": "string"
+          },
+          "image_url": {
+            "title": "Image Url",
+            "type": "string"
+          },
+          "uploaded_at": {
+            "format": "date-time",
+            "title": "Uploaded At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "image_type",
+          "image_url",
+          "uploaded_at"
+        ],
+        "title": "MeasurementImageOut",
+        "type": "object"
+      },
+      "MeasurementValuesOut": {
+        "properties": {
+          "shoulder_width": {
+            "$ref": "#/components/schemas/MeasurementFieldOut"
+          },
+          "sleeve_length": {
+            "$ref": "#/components/schemas/MeasurementFieldOut"
+          },
+          "chest": {
+            "$ref": "#/components/schemas/MeasurementFieldOut"
+          },
+          "waist": {
+            "$ref": "#/components/schemas/MeasurementFieldOut"
+          },
+          "hips": {
+            "$ref": "#/components/schemas/MeasurementFieldOut"
+          },
+          "thigh": {
+            "$ref": "#/components/schemas/MeasurementFieldOut"
+          },
+          "neck": {
+            "$ref": "#/components/schemas/MeasurementFieldOut"
+          },
+          "boubou_length": {
+            "$ref": "#/components/schemas/MeasurementFieldOut"
+          },
+          "fond": {
+            "$ref": "#/components/schemas/MeasurementFieldOut"
+          }
+        },
+        "required": [
+          "shoulder_width",
+          "sleeve_length",
+          "chest",
+          "waist",
+          "hips",
+          "thigh",
+          "neck",
+          "boubou_length",
+          "fond"
+        ],
+        "title": "MeasurementValuesOut",
+        "type": "object"
+      },
+      "ProfileOut": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          },
+          "height_cm": {
+            "title": "Height Cm",
+            "type": "number"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "images": {
+            "items": {
+              "$ref": "#/components/schemas/MeasurementImageOut"
+            },
+            "title": "Images",
+            "type": "array"
+          },
+          "measurements": {
+            "$ref": "#/components/schemas/MeasurementValuesOut"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "height_cm",
+          "status",
+          "created_at",
+          "updated_at",
+          "images",
+          "measurements"
+        ],
+        "title": "ProfileOut",
+        "type": "object"
+      },
+      "ProfileCreateIn": {
+        "properties": {
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          },
+          "height_cm": {
+            "title": "Height Cm",
+            "type": "number"
+          }
+        },
+        "required": [
+          "user_id",
+          "height_cm"
+        ],
+        "title": "ProfileCreateIn",
+        "type": "object"
+      },
+      "ProfileListItemOut": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          },
+          "height_cm": {
+            "title": "Height Cm",
+            "type": "number"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "height_cm",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ProfileListItemOut",
+        "type": "object"
+      },
+      "MeasurementFieldIn": {
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "enum": [
+                  "ai",
+                  "manual",
+                  "admin"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          }
+        },
+        "title": "MeasurementFieldIn",
+        "type": "object"
+      },
+      "MeasurementsUpdateIn": {
+        "properties": {
+          "shoulder_width": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementFieldIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sleeve_length": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementFieldIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "chest": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementFieldIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "waist": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementFieldIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hips": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementFieldIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "thigh": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementFieldIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "neck": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementFieldIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "boubou_length": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementFieldIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "fond": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MeasurementFieldIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "title": "MeasurementsUpdateIn",
+        "type": "object"
+      },
+      "UserOut": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "is_staff": {
+            "title": "Is Staff",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "email",
+          "phone",
+          "is_staff"
+        ],
+        "title": "UserOut",
+        "type": "object"
+      },
+      "UserCreateIn": {
+        "properties": {
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          }
+        },
+        "required": [
+          "username",
+          "email",
+          "password"
+        ],
+        "title": "UserCreateIn",
+        "type": "object"
+      },
+      "TokenOut": {
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "token_type": {
+            "default": "bearer",
+            "title": "Token Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "access_token"
+        ],
+        "title": "TokenOut",
+        "type": "object"
+      },
+      "UserLoginIn": {
+        "properties": {
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "UserLoginIn",
+        "type": "object"
+      },
+      "UserUpdateMeIn": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "password": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password"
+          }
+        },
+        "title": "UserUpdateMeIn",
+        "type": "object"
+      },
+      "OrderOut": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          },
+          "profile_id": {
+            "format": "uuid",
+            "title": "Profile Id",
+            "type": "string"
+          },
+          "tailor_model_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tailor Model Id"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "delivery_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delivery Date"
+          },
+          "final_price": {
+            "anyOf": [
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Final Price"
+          },
+          "paid": {
+            "title": "Paid",
+            "type": "boolean"
+          },
+          "paid_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Paid At"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "profile_id",
+          "tailor_model_id",
+          "status",
+          "delivery_date",
+          "final_price",
+          "paid",
+          "paid_at",
+          "notes",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "OrderOut",
+        "type": "object"
+      },
+      "OrderCreateIn": {
+        "properties": {
+          "profile_id": {
+            "format": "uuid",
+            "title": "Profile Id",
+            "type": "string"
+          },
+          "tailor_model_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tailor Model Id"
+          },
+          "delivery_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delivery Date"
+          },
+          "notes": {
+            "default": "",
+            "title": "Notes",
+            "type": "string"
+          }
+        },
+        "required": [
+          "profile_id"
+        ],
+        "title": "OrderCreateIn",
+        "type": "object"
+      },
+      "OrderPatchIn": {
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "delivery_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delivery Date"
+          },
+          "final_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Final Price"
+          },
+          "paid": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Paid"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "title": "OrderPatchIn",
+        "type": "object"
+      },
+      "TailorModelOut": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "base_price": {
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Base Price",
+            "type": "string"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "promotion_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Id"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "category",
+          "base_price",
+          "is_active",
+          "promotion_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "TailorModelOut",
+        "type": "object"
+      },
+      "TailorModelIn": {
+        "properties": {
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "base_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              }
+            ],
+            "title": "Base Price"
+          },
+          "promotion_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Id"
+          },
+          "is_active": {
+            "default": true,
+            "title": "Is Active",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title",
+          "category",
+          "base_price"
+        ],
+        "title": "TailorModelIn",
+        "type": "object"
+      },
+      "TailorModelPatchIn": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "base_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Price"
+          },
+          "promotion_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Id"
+          },
+          "is_active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Active"
+          }
+        },
+        "title": "TailorModelPatchIn",
+        "type": "object"
+      },
+      "PromotionOut": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "percentage": {
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Percentage",
+            "type": "string"
+          },
+          "active": {
+            "title": "Active",
+            "type": "boolean"
+          },
+          "starts_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Starts At"
+          },
+          "ends_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends At"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "percentage",
+          "active",
+          "starts_at",
+          "ends_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "PromotionOut",
+        "type": "object"
+      },
+      "PromotionIn": {
+        "properties": {
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "percentage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              }
+            ],
+            "title": "Percentage"
+          },
+          "active": {
+            "default": true,
+            "title": "Active",
+            "type": "boolean"
+          },
+          "starts_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Starts At"
+          },
+          "ends_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends At"
+          }
+        },
+        "required": [
+          "label",
+          "percentage"
+        ],
+        "title": "PromotionIn",
+        "type": "object"
+      },
+      "PromotionPatchIn": {
+        "properties": {
+          "label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          },
+          "percentage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percentage"
+          },
+          "active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active"
+          },
+          "starts_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Starts At"
+          },
+          "ends_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends At"
+          }
+        },
+        "title": "PromotionPatchIn",
+        "type": "object"
+      },
+      "NotificationOut": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "is_read": {
+            "title": "Is Read",
+            "type": "boolean"
+          },
+          "read_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read At"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "title": "Metadata",
+            "type": "object"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "type",
+          "title",
+          "message",
+          "is_read",
+          "read_at",
+          "metadata",
+          "created_at"
+        ],
+        "title": "NotificationOut",
+        "type": "object"
+      },
+      "NotificationMarkReadOut": {
+        "properties": {
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success"
+        ],
+        "title": "NotificationMarkReadOut",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "JWTAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "servers": []
+}

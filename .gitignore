@@ -1,0 +1,29 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets and local env
+.env
+.env.*
+**/.env
+# Local databases / uploads
+backend/db.sqlite3
+backend/uploads/
+
+# Local lab artifacts
+lab/input/
+lab/output/
+lab/sample_outputs/
+lab/models/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+lab/*.ipynb
+.agents/
